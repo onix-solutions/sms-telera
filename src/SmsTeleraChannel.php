@@ -64,8 +64,9 @@ class SmsTeleraChannel
         }
 
         $params = [
-            'phones'  => \implode(',', $recipients),
-            'mes'     => $message->content,
+//            'phones'  => \implode(',', $recipients),
+            'to'  => \implode(',', $recipients),
+            'msg'     => $message->content,
             'sender'  => $message->from,
         ];
 

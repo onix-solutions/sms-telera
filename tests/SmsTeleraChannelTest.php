@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannel\SmsTelera\Tests;
+namespace OnixSolutions\SmsTelera\Tests;
 
 use Mockery as M;
 use Illuminate\Notifications\Notifiable;

@@ -51,7 +51,7 @@ Add your SmsTelera login, secret key (hashed password) and default sender name (
 ...
 'smsctelera' => [
     'tk'  => env('SMSCTELERA_TK'),
-    'sender' => env(''SMSCTELERA_SENDER)
+    'sender' => env('SMSCTELERA_SENDER')
 ],
 ...
 ```
