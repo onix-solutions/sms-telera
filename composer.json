@@ -1,7 +1,7 @@
 {
     "name": "onix-solutions/sms-telera",
-    "description": "SmsTelera Notifications channel for Laravel 5.3.",
-    "keywords": ["laravel", "notifications", "smscentre", "smsc", "СМС-Центр"],
+    "description": "SmsTelera Notifications channel for Laravel 5.3+.",
+    "keywords": ["laravel", "notifications", "smstelera", "telera"],
     "homepage": "https://github.com/onix-solutions/sms-telera",
     "license": "MIT",
     "authors": [
