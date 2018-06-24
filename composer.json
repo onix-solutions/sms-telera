@@ -1,15 +1,15 @@
 {
-    "name": "laravel-notification-channels/smsc-ru",
-    "description": "SmscRu Notifications channel for Laravel 5.3.",
+    "name": "onix-solutions/sms-telera",
+    "description": "SmsTelera Notifications channel for Laravel 5.3.",
     "keywords": ["laravel", "notifications", "smscentre", "smsc", "СМС-Центр"],
-    "homepage": "https://github.com/laravel-notification-channels/smsc-ru",
+    "homepage": "https://github.com/onix-solutions/sms-telera",
     "license": "MIT",
     "authors": [
         {
-            "name": "JhaoDa",
+            "name": "Sandro Boçon",
             "role": "Developer",
-            "email": "jhaoda@gmail.com",
-            "homepage": "https://github.com/jhaoda"
+            "email": "contato@onixsolutions.com.br",
+            "homepage": "https://github.com/onix-solutions"
         }
     ],
     "require": {
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\SmscRu\\": "src"
+            "OnixSolutions\\SmsTelera\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\SmscRu\\Test\\": "tests"
+            "OnixSolutions\\SmsTelera\\Test\\": "tests"
         }
     },
     "config": {
@@ -43,7 +43,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NotificationChannels\\SmscRu\\SmscRuServiceProvider"
+                "OnixSolutions\\SmsTelera\\SmsTeleraServiceProvider"
             ]
         }
     }

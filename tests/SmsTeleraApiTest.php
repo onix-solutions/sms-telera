@@ -1,12 +1,12 @@
 <?php
 
-namespace NotificationChannel\SmscRu\Tests;
+namespace NotificationChannel\SmsTelera\Tests;
 
-use NotificationChannels\SmscRu\SmscRuApi;
+use OnixSolutions\SmsTelera\SmsTeleraApi;
 
-class SmscRuApiTest extends \PHPUnit_Framework_TestCase
+class SmsTeleraApiTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var SmscRuApi */
+    /** @var SmsTeleraApi */
     private $smsc;
 
     public function tearDown()
@@ -19,13 +19,13 @@ class SmscRuApiTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_has_config_with_default_endpoint()
     {
-        $this->smsc = new SmscRuApi([
+        $this->smsc = new SmsTeleraApi([
             'login'  => $login = 'login',
             'secret' => $secret = 'secret',
             'sender' => $sender = 'sender',
         ]);
 
-        $this->assertAttributeEquals('https://smsc.ru/sys/send.php', 'endpoint', $this->smsc);
+        $this->assertAttributeEquals('https://smsc.telera/sys/send.php', 'endpoint', $this->smsc);
         $this->assertAttributeEquals($login, 'login', $this->smsc);
         $this->assertAttributeEquals($secret, 'secret', $this->smsc);
         $this->assertAttributeEquals($sender, 'sender', $this->smsc);
@@ -34,7 +34,7 @@ class SmscRuApiTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_has_config_with_custom_endpoint()
     {
-        $this->smsc = new SmscRuApi([
+        $this->smsc = new SmsTeleraApi([
             'host' => $host = 'https://smsc.kz/',
         ]);
 

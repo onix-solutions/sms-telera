@@ -1,6 +1,7 @@
 # The MIT License (MIT)
 
-Copyright © JhaoDa <jhaoda@gmail.com>
+Copyright © onix-solutions <contato@onixsolutions.com.br>
+Copyright © JhaoDa <jhaoda@gmail.com> (Forked from https://github.com/onix-solutions/sms-telera)
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal

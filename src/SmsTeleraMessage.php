@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationChannels\SmscRu;
+namespace OnixSolutions\SmsTelera;
 
-class SmscRuMessage
+class SmsTeleraMessage
 {
     /**
      * The phone number the message should be sent from.

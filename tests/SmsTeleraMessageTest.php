@@ -1,15 +1,15 @@
 <?php
 
-namespace NotificationChannels\SmscRu\Test;
+namespace OnixSolutions\SmsTelera\Test;
 
-use NotificationChannels\SmscRu\SmscRuMessage;
+use OnixSolutions\SmsTelera\SmsTeleraMessage;
 
-class SmscRuMessageTest extends \PHPUnit_Framework_TestCase
+class SmsTeleraMessageTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_can_accept_a_content_when_constructing_a_message()
     {
-        $message = new SmscRuMessage('hello');
+        $message = new SmsTeleraMessage('hello');
 
         $this->assertEquals('hello', $message->content);
     }
@@ -17,7 +17,7 @@ class SmscRuMessageTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_accept_a_content_when_creating_a_message()
     {
-        $message = SmscRuMessage::create('hello');
+        $message = SmsTeleraMessage::create('hello');
 
         $this->assertEquals('hello', $message->content);
     }
@@ -25,7 +25,7 @@ class SmscRuMessageTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_set_the_content()
     {
-        $message = (new SmscRuMessage())->content('hello');
+        $message = (new SmsTeleraMessage())->content('hello');
 
         $this->assertEquals('hello', $message->content);
     }
@@ -33,7 +33,7 @@ class SmscRuMessageTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_set_the_from()
     {
-        $message = (new SmscRuMessage())->from('John_Doe');
+        $message = (new SmsTeleraMessage())->from('John_Doe');
 
         $this->assertEquals('John_Doe', $message->from);
     }
@@ -42,7 +42,7 @@ class SmscRuMessageTest extends \PHPUnit_Framework_TestCase
     public function it_can_set_the_send_at()
     {
         $sendAt = date_create();
-        $message = (new SmscRuMessage())->sendAt($sendAt);
+        $message = (new SmsTeleraMessage())->sendAt($sendAt);
 
         $this->assertEquals($sendAt, $message->sendAt);
     }

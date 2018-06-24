@@ -1,12 +1,12 @@
 <?php
 
-namespace NotificationChannels\SmscRu;
+namespace OnixSolutions\SmsTelera;
 
 use Illuminate\Support\Arr;
 use GuzzleHttp\Client as HttpClient;
-use NotificationChannels\SmscRu\Exceptions\CouldNotSendNotification;
+use OnixSolutions\SmsTelera\Exceptions\CouldNotSendNotification;
 
-class SmscRuApi
+class SmsTeleraApi
 {
     const FORMAT_JSON = 3;
 
@@ -27,10 +27,9 @@ class SmscRuApi
 
     public function __construct(array $config)
     {
-        $this->login = Arr::get($config, 'login');
-        $this->secret = Arr::get($config, 'secret');
-        $this->sender = Arr::get($config, 'sender');
-        $this->endpoint = Arr::get($config, 'host', 'https://smsc.ru/').'sys/send.php';
+        $this->tk = Arr::get($config, 'tk');
+        $this->tp = Arr::get($config, 'tp');
+        $this->endpoint = Arr::get($config, 'host', 'http://sms.telera.co/app/');
 
         $this->client = new HttpClient([
             'timeout' => 5,
@@ -42,10 +41,8 @@ class SmscRuApi
     {
         $base = [
             'charset' => 'utf-8',
-            'login'   => $this->login,
-            'psw'     => $this->secret,
-            'sender'  => $this->sender,
-            'fmt'     => self::FORMAT_JSON,
+            'tp'     => $this->tp,
+            'tk'   => $this->tk,
         ];
 
         $params = \array_merge($base, \array_filter($params));

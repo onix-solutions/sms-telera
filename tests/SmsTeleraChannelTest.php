@@ -1,28 +1,28 @@
 <?php
 
-namespace NotificationChannel\SmscRu\Tests;
+namespace NotificationChannel\SmsTelera\Tests;
 
 use Mockery as M;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\SmscRu\SmscRuApi;
-use NotificationChannels\SmscRu\SmscRuChannel;
-use NotificationChannels\SmscRu\SmscRuMessage;
+use OnixSolutions\SmsTelera\SmsTeleraApi;
+use OnixSolutions\SmsTelera\SmsTeleraChannel;
+use OnixSolutions\SmsTelera\SmsTeleraMessage;
 
-class SmscRuChannelTest extends \PHPUnit_Framework_TestCase
+class SmsTeleraChannelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var SmscRuApi
+     * @var SmsTeleraApi
      */
     private $smsc;
 
     /**
-     * @var SmscRuMessage
+     * @var SmsTeleraMessage
      */
     private $message;
 
     /**
-     * @var SmscRuChannel
+     * @var SmsTeleraChannel
      */
     private $channel;
 
@@ -35,13 +35,13 @@ class SmscRuChannelTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->smsc = M::mock(SmscRuApi::class, [
+        $this->smsc = M::mock(SmsTeleraApi::class, [
             'login' => 'test',
             'secret' => 'test',
             'sender' => 'John_Doe',
         ]);
-        $this->channel = new SmscRuChannel($this->smsc);
-        $this->message = M::mock(SmscRuMessage::class);
+        $this->channel = new SmsTeleraChannel($this->smsc);
+        $this->message = M::mock(SmsTeleraMessage::class);
     }
 
     public function tearDown()
@@ -90,7 +90,7 @@ class SmscRuChannelTest extends \PHPUnit_Framework_TestCase
         $this->smsc->shouldNotReceive('send');
 
         $this->channel->send(
-            new TestNotifiableWithoutRouteNotificationForSmscru(), new TestNotification()
+            new TestNotifiableWithoutRouteNotificationForSmsctelera(), new TestNotification()
         );
     }
 
@@ -116,15 +116,15 @@ class TestNotifiable
 
     // Laravel v5.6+ passes the notification instance here
     // So we need to add `Notification $notification` argument to check it when this project stops supporting < 5.6
-    public function routeNotificationForSmscru()
+    public function routeNotificationForSmsctelera()
     {
         return '+1234567890';
     }
 }
 
-class TestNotifiableWithoutRouteNotificationForSmscru extends TestNotifiable
+class TestNotifiableWithoutRouteNotificationForSmsctelera extends TestNotifiable
 {
-    public function routeNotificationForSmscru()
+    public function routeNotificationForSmsctelera()
     {
         return false;
     }
@@ -132,7 +132,7 @@ class TestNotifiableWithoutRouteNotificationForSmscru extends TestNotifiable
 
 class TestNotifiableWithManyPhones extends TestNotifiable
 {
-    public function routeNotificationForSmscru()
+    public function routeNotificationForSmsctelera()
     {
         return ['+1234567890', '+0987654321', '+1234554321'];
     }
@@ -140,18 +140,18 @@ class TestNotifiableWithManyPhones extends TestNotifiable
 
 class TestNotification extends Notification
 {
-    public function toSmscRu()
+    public function toSmsTelera()
     {
-        return SmscRuMessage::create('hello')->from('John_Doe');
+        return SmsTeleraMessage::create('hello')->from('John_Doe');
     }
 }
 
 class TestNotificationWithSendAt extends Notification
 {
-    public function toSmscRu()
+    public function toSmsTelera()
     {
-        return SmscRuMessage::create('hello')
+        return SmsTeleraMessage::create('hello')
             ->from('John_Doe')
-            ->sendAt(SmscRuChannelTest::$sendAt);
+            ->sendAt(SmsTeleraChannelTest::$sendAt);
     }
 }

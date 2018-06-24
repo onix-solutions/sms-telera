@@ -1,16 +1,16 @@
 <?php
 
-namespace NotificationChannels\SmscRu;
+namespace OnixSolutions\SmsTelera;
 
 use Illuminate\Notifications\Notification;
-use NotificationChannels\SmscRu\Exceptions\CouldNotSendNotification;
+use OnixSolutions\SmsTelera\Exceptions\CouldNotSendNotification;
 
-class SmscRuChannel
+class SmsTeleraChannel
 {
-    /** @var \NotificationChannels\SmscRu\SmscRuApi */
+    /** @var \OnixSolutions\SmsTelera\SmsTeleraApi */
     protected $smsc;
 
-    public function __construct(SmscRuApi $smsc)
+    public function __construct(SmsTeleraApi $smsc)
     {
         $this->smsc = $smsc;
     }
@@ -29,10 +29,10 @@ class SmscRuChannel
             return;
         }
 
-        $message = $notification->{'toSmscRu'}($notifiable);
+        $message = $notification->{'toSmsTelera'}($notifiable);
 
         if (\is_string($message)) {
-            $message = new SmscRuMessage($message);
+            $message = new SmsTeleraMessage($message);
         }
 
         $this->sendMessage($to, $message);
@@ -48,7 +48,7 @@ class SmscRuChannel
      */
     protected function getRecipients($notifiable, Notification $notification)
     {
-        $to = $notifiable->routeNotificationFor('smscru', $notification);
+        $to = $notifiable->routeNotificationFor('smsctelera', $notification);
 
         if ($to === null || $to === false || $to === '') {
             return [];
@@ -57,7 +57,7 @@ class SmscRuChannel
         return is_array($to) ? $to : [$to];
     }
 
-    protected function sendMessage($recipients, SmscRuMessage $message)
+    protected function sendMessage($recipients, SmsTeleraMessage $message)
     {
         if (\mb_strlen($message->content) > 800) {
             throw CouldNotSendNotification::contentLengthLimitExceeded();

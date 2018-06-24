@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\SmscRu\Exceptions;
+namespace OnixSolutions\SmsTelera\Exceptions;
 
 use Exception;
 use DomainException;
@@ -20,7 +20,7 @@ class CouldNotSendNotification extends Exception
     }
 
     /**
-     * Thrown when we're unable to communicate with smsc.ru.
+     * Thrown when we're unable to communicate with smsc.telera.
      *
      * @param  DomainException  $exception
      *
@@ -29,12 +29,12 @@ class CouldNotSendNotification extends Exception
     public static function smscRespondedWithAnError(DomainException $exception)
     {
         return new static(
-            "smsc.ru responded with an error '{$exception->getCode()}: {$exception->getMessage()}'"
+            "smsc.telera responded with an error '{$exception->getCode()}: {$exception->getMessage()}'"
         );
     }
 
     /**
-     * Thrown when we're unable to communicate with smsc.ru.
+     * Thrown when we're unable to communicate with smsc.telera.
      *
      * @param  Exception  $exception
      *
@@ -42,6 +42,6 @@ class CouldNotSendNotification extends Exception
      */
     public static function couldNotCommunicateWithSmsc(Exception $exception)
     {
-        return new static("The communication with smsc.ru failed. Reason: {$exception->getMessage()}");
+        return new static("The communication with smsc.telera failed. Reason: {$exception->getMessage()}");
     }
 }
