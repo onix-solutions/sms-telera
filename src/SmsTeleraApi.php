@@ -29,7 +29,7 @@ class SmsTeleraApi
     {
         $this->tk = Arr::get($config, 'tk');
         $this->tp = Arr::get($config, 'tp');
-        $this->endpoint = Arr::get($config, 'host', 'http://sms.telera.co/app/');
+        $this->endpoint = Arr::get($config, 'host', 'http://sms.multibr.com/app/');
 
         $this->client = new HttpClient([
             'timeout' => 5,
