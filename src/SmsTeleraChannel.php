@@ -64,15 +64,17 @@ class SmsTeleraChannel
         }
 
         $params = [
-//            'phones'  => \implode(',', $recipients),
-            'to'  => \implode(',', $recipients),
-            'msg'     => $message->content,
-            'sender'  => $message->from,
+            'numero'  => \implode(',', $recipients), //Número da mensagem (Obrigatório, padrão E164 ex: 5511988663344).
+            'mensagem'     => $message->content,
+            'servico' => (isset($message->servico) ? $message->servico : $this->smsc->tp), //Serviço da mensagem (Obrigatório, long ou short).
+            'codificacao' => "1",  // Codificação da mensagem (Não obrigatório, 1 para 7-bits e 8 para 16-bits).
         ];
 
-        if ($message->sendAt instanceof \DateTimeInterface) {
-            $params['time'] = '0'.$message->sendAt->getTimestamp();
-        }
+        $params = json_encode(array((object)$params)); // Body format to send to API
+
+//        if ($message->sendAt instanceof \DateTimeInterface) {
+//            $params['time'] = '0'.$message->sendAt->getTimestamp();
+//        }
 
         $this->smsc->send($params);
     }

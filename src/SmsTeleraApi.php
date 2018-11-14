@@ -29,7 +29,7 @@ class SmsTeleraApi
     {
         $this->tk = Arr::get($config, 'tk');
         $this->tp = Arr::get($config, 'tp');
-        $this->endpoint = Arr::get($config, 'host', 'http://sms.multibr.com/app/');
+        $this->endpoint = Arr::get($config, 'host', 'http://apisms.multibr.com/mt');
 
         $this->client = new HttpClient([
             'timeout' => 5,
@@ -39,21 +39,30 @@ class SmsTeleraApi
 
     public function send($params)
     {
-        $base = [
-            'charset' => 'utf-8',
-            'tp'     => $this->tp,
-            'tk'   => $this->tk,
+        $header = [
+            'Authorization' => 'Bearer '.$this->tk,
+            'Content-Type'  => 'application/json',
         ];
 
-        $params = \array_merge($base, \array_filter($params));
+        //$params = \array_filter($params);
 
         try {
-            $response = $this->client->request('POST', $this->endpoint, ['form_params' => $params]);
+            $response = $this->client->request('POST', $this->endpoint, ['body'=>$params, 'headers' => $header]);   //'form_params' => $params
 
             $response = \json_decode((string) $response->getBody(), true);
 
-            if (isset($response['error'])) {
-                throw new \DomainException($response['error'], $response['error_code']);
+            if (!isset($response['status']) or $response['status'] != 200
+                or !isset($response['detail'][0]['status']) or $response['detail'][0]['status'] != 'ACCEPTED') {
+
+                if($response['status'] != 200)
+                    throw new \DomainException($response['detail'], $response['status']);
+
+                $errors_msg = [
+                    "ACCEPTED" => "Aguardando",
+                    "PAYREQUIRED" => "Sem Saldo",
+                    "UNKNOWN"  => "Falhada"
+                ];
+                throw new \DomainException($response['detail'][0]['status'].'['.$errors_msg[$response['detail'][0]['status']].']', $response['status']);
             }
 
             return $response;
