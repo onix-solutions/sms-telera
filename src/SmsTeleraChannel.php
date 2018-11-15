@@ -66,7 +66,7 @@ class SmsTeleraChannel
         $params = [
             'numero'  => \implode(',', $recipients), //Número da mensagem (Obrigatório, padrão E164 ex: 5511988663344).
             'mensagem'     => $message->content,
-            'servico' => (isset($message->servico) ? $message->servico : $this->smsc->tp), //Serviço da mensagem (Obrigatório, long ou short).
+            'servico' => ((isset($message->service) and !empty(isset($message->service))) ? $message->service : $this->smsc->tp), //Serviço da mensagem (Obrigatório, long ou short).
             'codificacao' => "1",  // Codificação da mensagem (Não obrigatório, 1 para 7-bits e 8 para 16-bits).
         ];
 

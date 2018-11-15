@@ -26,6 +26,13 @@ class SmsTeleraMessage
     public $sendAt;
 
     /**
+     * Service to be used (long/short).
+     *
+     * @var string
+     */
+    public $service;
+
+    /**
      * Create a new message instance.
      *
      * @param  string $content
@@ -83,6 +90,22 @@ class SmsTeleraMessage
     public function sendAt(\DateTimeInterface $sendAt = null)
     {
         $this->sendAt = $sendAt;
+
+        return $this;
+    }
+
+    /**
+     * Set the service to be used (long/short)
+     *
+     * @param  string  $service
+     *
+     * @return $this
+     */
+    public function service($service)
+    {
+        $service = (strtolower($service) == 'short') ? 'short' : 'long';
+
+        $this->service = $service;
 
         return $this;
     }
